@@ -87,6 +87,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CArea.cs" />
+    <Compile Include="CHuman.cs" />
+    <Compile Include="CLocation.cs" />
     <Compile Include="CRoude.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -137,6 +140,18 @@
     <Resource Include="pics\car.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\cirkle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\mark1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\human1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\point.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

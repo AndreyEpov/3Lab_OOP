@@ -11,14 +11,14 @@ using System.Windows.Shapes;
 
 namespace _3Lab_OOP
 {
-    public class CRoude : CMapObject
+    class CArea : CMapObject
     {
         private List<PointLatLng> points;
-        public CRoude(string title,List<PointLatLng> points) : base(title) 
+        public CArea(string title, List<PointLatLng> points) : base(title)
         {
-            this.points = new List<PointLatLng>();
-         
-            foreach(PointLatLng p in points)
+            this.points = new PointLatLng[] { }.ToList(); 
+
+            foreach (PointLatLng p in points)
             {
                 this.points.Add(p);
             }
@@ -37,16 +37,17 @@ namespace _3Lab_OOP
 
         public override GMapMarker getMarker()
         {
-            GMapMarker marker = new GMapRoute(points)
+            GMapMarker marker = new GMapPolygon(points)
             {
-                Shape = new Path()
+                Shape = new Path
                 {
-                    Stroke = Brushes.DarkBlue, // цвет обводки
-                    Fill = Brushes.DarkBlue, // цвет заливки
-                    StrokeThickness = 4 // толщина обводки
+                    Stroke = Brushes.Black, // стиль обводки
+                    Fill = Brushes.Violet, // стиль заливки
+                    Opacity = 0.7 // прозрачность
                 }
             };
             return marker;
         }
     }
 }
+

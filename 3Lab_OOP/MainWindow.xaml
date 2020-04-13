@@ -6,23 +6,37 @@
         xmlns:local="clr-namespace:_3Lab_OOP"
         xmlns:WindowsPresentation="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation" x:Class="_3Lab_OOP.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1000" Width="1199">
-    <Grid>
+        Title="MainWindow" Height="684" Width="1199">
+    <Grid Margin="0">
 
         <WindowsPresentation:GMapControl Name="Map" Loaded="MapLoaded" Width="800" Height="600" HorizontalAlignment="Left" VerticalAlignment="Top" MouseLeftButtonDown="Map_MouseLeftButtonDown" />
-        <ComboBox x:Name="objType" HorizontalAlignment="Left" Margin="899,10,0,0" VerticalAlignment="Top" Width="201" SelectedIndex="0" Height="34">
+        <ComboBox x:Name="objType" Margin="899,112,91,0" VerticalAlignment="Top" SelectedIndex="0" Height="23">
             <ListBoxItem Content="Car"/>
             <ListBoxItem Content="Human"/>
             <ListBoxItem Content="Location"/>
             <ListBoxItem Content="Area"/>
             <ListBoxItem Content="Rout"/>
         </ComboBox>
-        <TextBox x:Name="objTitle" HorizontalAlignment="Left" Height="41" Margin="899,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201"/>
-        <Label x:Name="label" Content="ObjectTitle" HorizontalAlignment="Left" Margin="899,81,0,0" VerticalAlignment="Top" Height="47" Width="201"/>
-        <Button x:Name="ShowObject" Content="Show Object" HorizontalAlignment="Left" Margin="899,213,0,0" VerticalAlignment="Top" Width="201" Height="42" Click="ShowObject_Click"/>
-        <Button x:Name="button" Content="Focus" HorizontalAlignment="Left" Margin="899,277,0,0" VerticalAlignment="Top" Width="201" Height="39" Click="button_Click"/>
-        <ListBox x:Name="objectList" HorizontalAlignment="Left" Height="252" Margin="899,343,0,0" VerticalAlignment="Top" Width="201"/>
-        <Button x:Name="button1" Content="Add object" HorizontalAlignment="Left" Margin="1122,277,0,0" VerticalAlignment="Top" Width="59" Height="39" Click="button1_Click"/>
+        <TextBox x:Name="objTitle" HorizontalAlignment="Left" Height="41" Margin="899,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" TextChanged="objTitle_TextChanged"/>
+        <Label x:Name="label" Content="ObjectTitle" HorizontalAlignment="Left" Margin="899,140,0,0" VerticalAlignment="Top" Height="26" Width="201"/>
+        <Button x:Name="button" Content="Focus" HorizontalAlignment="Left" Margin="899,377,0,0" VerticalAlignment="Top" Width="201" Height="39" Click="button_Click"/>
+        <ListBox x:Name="objectList" HorizontalAlignment="Left" Height="148" Margin="899,447,0,0" VerticalAlignment="Top" Width="201"/>
+        <Button x:Name="button1" Content="Add object" HorizontalAlignment="Left" Margin="899,217,0,0" VerticalAlignment="Top" Width="201" Height="39" Click="button1_Click"/>
+        <RadioButton x:Name="createObjs" Content="createObjs" HorizontalAlignment="Left" Margin="1043,36,0,0" VerticalAlignment="Top" Height="17" Width="81" Checked="createObjs_Checked" IsChecked="True"/>
+        <RadioButton x:Name="find" Content="find" HorizontalAlignment="Left" Margin="1043,58,0,0" VerticalAlignment="Top" Height="15" Width="81" Checked="find_Checked"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="60" Margin="882,26,0,0" VerticalAlignment="Top" Width="242" Cursor="SizeNESW" IsEnabled="False" Opacity="0.5" Visibility="Hidden">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
+        </Border>
+        <Label x:Name="label1" Content="Change cursor" HorizontalAlignment="Left" Margin="899,38,0,0" VerticalAlignment="Top" Height="37" Width="120" FontFamily="SimSun" FontSize="16"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="244" Margin="882,100,0,0" VerticalAlignment="Top" Width="242" Opacity="0.5" Visibility="Hidden">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="253" Margin="882,358,0,0" VerticalAlignment="Top" Width="229" Visibility="Hidden"/>
+        <Button x:Name="Clear_but" Content="Clear" HorizontalAlignment="Left" Margin="899,261,0,0" VerticalAlignment="Top" Width="201" Height="39" Click="Clear_but_Click"/>
 
     </Grid>
 </Window>

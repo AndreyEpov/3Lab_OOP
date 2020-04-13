@@ -28,6 +28,7 @@ namespace _3Lab_OOP
         List<CMapObject> objs = new List<CMapObject>();
 
         List<PointLatLng> pts = new List<PointLatLng>();
+        bool createFlag = true;
         public MainWindow()
         {
             InitializeComponent();
@@ -52,65 +53,91 @@ namespace _3Lab_OOP
             Map.MouseWheelZoomType = MouseWheelZoomType.MousePositionAndCenter;
             Map.CanDragMap = true;
             Map.DragButton = MouseButton.Left;
+        }
 
-            PointLatLng point = new PointLatLng(55.016511, 82.946152);
-
+        private void Map_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (objType.SelectedIndex == 0 || objType.SelectedIndex == 1 || objType.SelectedIndex == 2)
+            {
+                Map.Markers.Clear();
+                foreach (CMapObject cm in objs)
+                {
+                    Map.Markers.Add(cm.getMarker());
+                }
+            }
+            PointLatLng point = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
+            pts.Add(point);
             GMapMarker marker = new GMapMarker(point)
             {
                 Shape = new Image
                 {
                     Width = 32, // ширина маркера
                     Height = 32, // высота маркера
-                    ToolTip = "Honda CR-V", // всплывающая подсказка
-                    Source = new BitmapImage(new Uri("pack://application:,,,/pics/car.png")) // картинка
+                    Source = new BitmapImage(new Uri("pack://application:,,,/pics/point.png")), // картинка
+                 
                 }
-
+                
             };
+            
             Map.Markers.Add(marker);
 
-            // координаты точек замкнутой области (полигона)
-            List<PointLatLng> points = new PointLatLng[] {
-                 new PointLatLng(55.016351, 82.950650),
-                 new PointLatLng(55.017021, 82.951484),
-                 new PointLatLng(55.015795, 82.954526),
-                 new PointLatLng(55.015129, 82.953586) }.ToList();
-            GMapMarker marker2 = new GMapPolygon(points)
-            {
-                Shape = new Path
-                {
-                    Stroke = Brushes.Black, // стиль обводки
-                    Fill = Brushes.Violet, // стиль заливки
-                    Opacity = 0.7 // прозрачность
-                }
-            };
-            Map.Markers.Add(marker2);
-            // координаты точек маршрута
-            List<PointLatLng> points2 = new PointLatLng[] {
-             new PointLatLng(55.010637, 82.938550),
-             new PointLatLng(55.012421, 82.940781),
-             new PointLatLng(55.014613, 82.943497),
-             new PointLatLng(55.016214, 82.945469) }.ToList();
-            GMapMarker marker3 = new GMapRoute(points)
-            {
-                Shape = new Path()
-                {
-                    Stroke = Brushes.DarkBlue, // цвет обводки
-                    Fill = Brushes.DarkBlue, // цвет заливки
-                    StrokeThickness = 4 // толщина обводки
-                }
-            };
-            Map.Markers.Add(marker3);
-        }
-
-        private void Map_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            PointLatLng point = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
-            pts.Add(point);
         }
 
         private void ShowObject_Click(object sender, RoutedEventArgs e)
         {
+           
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (find.IsChecked == true)
+                foreach (CMapObject cm in objs)
+                {
+                    if (cm.getTitle() == objTitle.Text)
+                        Map.Position = cm.getFocus();
+                    
+                }
+
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            if (objType.SelectedIndex > -1 && createFlag)
+            {
+                if (objType.SelectedIndex == 0)
+                {
+                    CCar car = new CCar(objTitle.Text, pts[0] );
+                    objs.Add(car);
+                }
+                if (objType.SelectedIndex == 1)
+                {
+                    CHuman human = new CHuman(objTitle.Text, pts[0]);
+                    objs.Add(human);
+                }
+                if (objType.SelectedIndex == 2)
+                {
+                    CLocation location = new CLocation(objTitle.Text, pts[0]);
+                    objs.Add(location);
+                }
+                if (objType.SelectedIndex == 3)
+                {
+                    CArea area = new CArea(objTitle.Text, pts);
+                    objs.Add(area);
+                }
+                if (objType.SelectedIndex == 4)
+                {
+                    CRoude roude = new CRoude(objTitle.Text, pts);
+                    objs.Add(roude);
+                }
+            }
+            else if (objType.SelectedIndex > -1 && !createFlag)
+            {
+
+            }
+            pts.Clear();
             Map.Markers.Clear();
+            objTitle.Clear();
             objectList.Items.Clear();
             foreach (CMapObject cm in objs)
             {
@@ -119,33 +146,31 @@ namespace _3Lab_OOP
             }
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void createObjs_Checked(object sender, RoutedEventArgs e)
         {
-            if (objectList.SelectedIndex >-1)
-            {
-                PointLatLng p = objs[objectList.SelectedIndex].getFocus();
-                Map.Position = p; 
-
-            }
-                
+             createFlag = true;
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void find_Checked(object sender, RoutedEventArgs e)
         {
-            if (objType.SelectedIndex > -1)
-            {
-                if (objType.SelectedIndex == 0)
-                {
-                    CCar car = new CCar(objTitle.Text, pts[0] );
-                    objs.Add(car);
-                }
-                if (objType.SelectedIndex == 4)
-                {
-                    CRoude roude = new CRoude(objTitle.Text, pts);
-                    objs.Add(roude);
-                }
-            }
+            createFlag = false;
+        }
+
+        private void Clear_but_Click(object sender, RoutedEventArgs e)
+        {
+            Map.Markers.Clear();
             pts.Clear();
+            foreach (CMapObject cm in objs)
+            {
+                Map.Markers.Add(cm.getMarker());
+            }
+        }
+
+        private void objTitle_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+
+
         }
     }
 }

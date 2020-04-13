@@ -13,10 +13,10 @@ using System.Windows.Shapes;
 
 namespace _3Lab_OOP
 {
-    public class CCar : CMapObject
+    class CHuman : CMapObject
     {
         private PointLatLng point;
-        public CCar(string title, PointLatLng point) : base(title)
+        public CHuman(string title, PointLatLng point) : base(title)
         {
             this.point = point;
         }
@@ -40,10 +40,8 @@ namespace _3Lab_OOP
                 {
                     Width = 32, // ширина маркера
                     Height = 32, // высота маркера
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
-                    VerticalAlignment = System.Windows.VerticalAlignment.Center,
                     ToolTip = this.getTitle(), // всплывающая подсказка
-                    Source = new BitmapImage(new Uri("pack://application:,,,/pics/car.png")) // картинка
+                    Source = new BitmapImage(new Uri("pack://application:,,,/pics/human1.png")) // картинка
                 }
 
             };
