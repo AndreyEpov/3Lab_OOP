@@ -57,6 +57,7 @@ namespace _3Lab_OOP
 
         private void Map_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+
             if (objType.SelectedIndex == 0 || objType.SelectedIndex == 1 || objType.SelectedIndex == 2)
             {
                 Map.Markers.Clear();
@@ -92,12 +93,16 @@ namespace _3Lab_OOP
         {
 
             if (find.IsChecked == true)
+            {
                 foreach (CMapObject cm in objs)
                 {
                     if (cm.getTitle() == objTitle.Text)
                         Map.Position = cm.getFocus();
-                    
+
                 }
+
+            }
+
 
         }
 
