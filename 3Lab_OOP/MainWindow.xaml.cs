@@ -117,11 +117,6 @@ namespace _3Lab_OOP
                 Map.Markers.Add(marker);
                 foreach (CMapObject cm in objs)
                 {
-                    if (cm.getTitle() == objTitle.Text)
-                    {
-                        Map.Position = cm.getFocus();
-
-                    }
                     nearestObjects.Add(cm);
                 }
                 foreach (CMapObject cm in objs)
