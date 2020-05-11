@@ -20,7 +20,7 @@
         <TextBox x:Name="objTitle" HorizontalAlignment="Left" Height="41" Margin="899,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" TextChanged="objTitle_TextChanged"/>
         <Label x:Name="label" Content="ObjectTitle" HorizontalAlignment="Left" Margin="899,140,0,0" VerticalAlignment="Top" Height="26" Width="201"/>
         <Button x:Name="button" Content="Focus" HorizontalAlignment="Left" Margin="899,377,0,0" VerticalAlignment="Top" Width="201" Height="39" Click="button_Click"/>
-        <ListBox x:Name="objectList" HorizontalAlignment="Left" Height="148" Margin="899,447,0,0" VerticalAlignment="Top" Width="201"/>
+        <ListBox x:Name="objectList" HorizontalAlignment="Left" Height="148" Margin="899,447,0,0" VerticalAlignment="Top" Width="201" IsEnabledChanged="I" MouseDoubleClick="Listbox_Mouse_d_click" Grid.ColumnSpan="2" SelectionChanged="objectList_SelectionChanged" />
         <Button x:Name="button1" Content="Add object" HorizontalAlignment="Left" Margin="899,217,0,0" VerticalAlignment="Top" Width="201" Height="39" Click="button1_Click"/>
         <RadioButton x:Name="createObjs" Content="createObjs" HorizontalAlignment="Left" Margin="1043,36,0,0" VerticalAlignment="Top" Height="17" Width="81" Checked="createObjs_Checked" IsChecked="True"/>
         <RadioButton x:Name="find" Content="find" HorizontalAlignment="Left" Margin="1043,58,0,0" VerticalAlignment="Top" Height="15" Width="81" Checked="find_Checked"/>
@@ -37,6 +37,14 @@
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="253" Margin="882,358,0,0" VerticalAlignment="Top" Width="229" Visibility="Hidden"/>
         <Button x:Name="Clear_but" Content="Clear" HorizontalAlignment="Left" Margin="899,261,0,0" VerticalAlignment="Top" Width="201" Height="39" Click="Clear_but_Click"/>
+        <ListView x:Name="listView" HorizontalAlignment="Left" Height="148" Margin="899,447,0,0" VerticalAlignment="Top" Width="201" MouseDoubleClick="listView_MouseDoubleClick" Visibility="Hidden">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Title" Width="135" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Distance" Width="70" DisplayMemberBinding="{Binding Distance}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </Window>

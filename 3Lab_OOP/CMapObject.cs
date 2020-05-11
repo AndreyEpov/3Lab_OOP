@@ -28,10 +28,9 @@ namespace _3Lab_OOP
         {
             return date;
         }
-
+        
         public abstract double getDistance(PointLatLng point);
         public abstract PointLatLng getFocus();
         public abstract GMapMarker getMarker();
-
     }
 }
