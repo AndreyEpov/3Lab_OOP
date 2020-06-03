@@ -31,7 +31,15 @@ namespace _3Lab_OOP
 
         List<CMapObject> nearestObjects = new List<CMapObject>();
 
+        List<GMapMarker> markerTaxi = new List<GMapMarker>();
+
         bool createFlag = true;
+        bool buttonDoubleClick = false;
+        CHuman human = null;
+        CCar car = null;
+
+       
+
         public MainWindow()
         {
             InitializeComponent();
@@ -61,19 +69,21 @@ namespace _3Lab_OOP
         private void Map_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             CMapObject mapObject = null;
+           
             if (createFlag)
             {
-               // IEnumerable < CMapObject > query = nearestObjects.OrderBy(obj => obj);
+        
                 if (objType.SelectedIndex == 0 || objType.SelectedIndex == 1 || objType.SelectedIndex == 2)
                 {
                    
                     pts.Clear();
-                    Map.Markers.Clear();
-                    foreach (CMapObject cm in objs)
-                    {
-                        Map.Markers.Add(cm.getMarker());
+                    Map.Markers.Clear();                    
+                        foreach (CMapObject cm in objs)
+                        {
+                            Map.Markers.Add(cm.getMarker());
                        
-                    }
+                        }
+                    
                 }
                 PointLatLng point = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
                 pts.Add(point);
@@ -88,8 +98,11 @@ namespace _3Lab_OOP
                     }
                 
                 };
-            
-                Map.Markers.Add(marker);
+                if (!buttonDoubleClick)
+                {
+                    Map.Markers.Add(marker);
+                    buttonDoubleClick = false;
+                }
             }
             else if (!createFlag)
             {
@@ -172,39 +185,53 @@ namespace _3Lab_OOP
             { 
                 if (objType.SelectedIndex > -1 && createFlag == true)
                 {
-                    if (objType.SelectedIndex == 0)
+                    if (objType.SelectedIndex == 0  && objTitle.Text.Length > 0)
                     {
-                        CCar car = new CCar(objTitle.Text, pts[0]);
+                        CCar car = new CCar(objTitle.Text, pts[0],Map);
                         objs.Add(car);
                     }
-                    if (objType.SelectedIndex == 1)
+                    else if (objType.SelectedIndex == 0 && objTitle.Text.Length == 0)
                     {
-                        CHuman human = new CHuman(objTitle.Text, pts[0]);
+                        MessageBox.Show("Введите имя машины");
+                    }
+                    if (objType.SelectedIndex == 1 && objTitle.Text.Length > 0)
+                    {
+                         human = new CHuman(objTitle.Text, pts[0]);
                         objs.Add(human);
                     }
-                    if (objType.SelectedIndex == 2)
+                    else if (objType.SelectedIndex == 1 && objTitle.Text.Length == 0)
                     {
+                        MessageBox.Show("Введите имя человека");
+                    }
+                    if (objType.SelectedIndex == 2 && objTitle.Text.Length > 0)
+                    {
+                        
                         CLocation location = new CLocation(objTitle.Text, pts[0]);
                         objs.Add(location);
                     }
-                    if (objType.SelectedIndex == 3 && pts.Count>2)
+                    else if (objType.SelectedIndex == 2 && objTitle.Text.Length == 0)
+                    {
+                        MessageBox.Show("Введите название место прибытия");
+                    }
+                    if (objType.SelectedIndex == 3 && pts.Count>2 && objTitle.Text.Length > 0)
                     {
                         CArea area = new CArea(objTitle.Text, pts);
                         objs.Add(area);
                     }
-                    else if(objType.SelectedIndex == 3 && pts.Count <= 2)
+                    else if(objType.SelectedIndex == 3 && pts.Count <= 2 && objTitle.Text.Length > 0)
                     {
                         MessageBox.Show("Обозначьте площадь не менее из 3 точек");
                     }
-                    if (objType.SelectedIndex == 4 && pts.Count > 1)
+                    if (objType.SelectedIndex == 4 && pts.Count > 1 && objTitle.Text.Length > 0)
                     {
                         CRoude roude = new CRoude(objTitle.Text, pts);
                         objs.Add(roude);
                     }
-                    else if(objType.SelectedIndex == 4 && pts.Count <= 1)
+                    else if(objType.SelectedIndex == 4 && pts.Count <= 1 && objTitle.Text.Length > 0)
                     {
                         MessageBox.Show("Введите маршрут не менее из 2 точек");
                     }
+
                 }
                 else if (objType.SelectedIndex > -1 && !createFlag)
                 {
@@ -219,6 +246,8 @@ namespace _3Lab_OOP
                     Map.Markers.Add(cm.getMarker());
                     objectList.Items.Add(cm.getTitle());
                 }
+                foreach (GMapMarker cm in markerTaxi)
+                    Map.Markers.Add(cm);
             }
             catch
             {
@@ -283,6 +312,87 @@ namespace _3Lab_OOP
         private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private void But_ToDest_Click(object sender, RoutedEventArgs e)
+        {
+            objType.SelectedIndex = 2;
+                if(human != null)
+                    if (human.getTitle() != null)
+                        objTitle.Text = "Place of destination - " + human.getTitle();
+        }
+
+        private void But_callCar_Click(object sender, RoutedEventArgs e)
+        {
+            objType.SelectedIndex = 0;
+            if (human.getTitle() != null)
+                objTitle.Text = "Car of pass - " + human.getTitle();
+        }
+
+        private void Map_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            buttonDoubleClick = true;
+            PointLatLng point = Map.FromLocalToLatLng((int)e.GetPosition(Map).X, (int)e.GetPosition(Map).Y);
+            if (objType.SelectedIndex > -1 && createFlag == true)
+            {
+                if (objType.SelectedIndex == 0 && objTitle.Text.Length > 0)
+                {
+                    car = new CCar(objTitle.Text, pts[0],Map);
+                    objs.Add(car);
+                    if(human!=null)
+                    { 
+                        car.Arrived += human.CarArrived;
+                        human.passSeated += car.passSeated;
+                       // car.ArrivedtoDestination += human.CarArrivedToDestination;
+                       // human.passRise += car.passRise;
+                    }
+
+                }
+                else if (objType.SelectedIndex == 0 && objTitle.Text.Length == 0)
+                {
+                    MessageBox.Show("Введите имя машины");
+                }
+                if (objType.SelectedIndex == 1 && objTitle.Text.Length > 0)
+                {
+                     human = new CHuman(objTitle.Text, pts[0]);
+                    objs.Add(human);
+                }
+                else if (objType.SelectedIndex == 1 && objTitle.Text.Length == 0)
+                {
+                    MessageBox.Show("Введите имя человека");
+                }
+                if (objType.SelectedIndex == 2 && objTitle.Text.Length > 0)
+                {
+                    if (human != null)
+                    {
+                        human.moveTo(point);
+                        
+                        CLocation location = new CLocation(objTitle.Text, pts[0]);
+                        objs.Add(location);
+                    }
+                }
+                else if (objType.SelectedIndex == 2 && objTitle.Text.Length == 0)
+                {
+                    MessageBox.Show("Введите название место прибытия");
+                }
+                pts.Clear();
+                Map.Markers.Clear();
+                objTitle.Clear();
+                objectList.Items.Clear();
+                foreach (CMapObject cm in objs)
+                {
+                    Map.Markers.Add(cm.getMarker());
+                    objectList.Items.Add(cm.getTitle());
+                }
+                foreach (GMapMarker cm in markerTaxi)
+                    Map.Markers.Add(cm);
+            }
+        }
+
+        private void But_Ok_Click(object sender, RoutedEventArgs e)
+        {
+            Map.Markers.Add( car.moveTo(human.getFocus()) );
+            markerTaxi.Add(car.moveTo(human.getFocus()));
         }
     }
 }

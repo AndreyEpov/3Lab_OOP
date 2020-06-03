@@ -23,6 +23,11 @@ namespace _3Lab_OOP
                 this.points.Add(p);
             }
         }
+
+        public List<PointLatLng> getPoints()
+        {
+            return points;
+        }
         public override double getDistance(PointLatLng point)
         {
             GeoCoordinate p1 = new GeoCoordinate(point.Lat, point.Lng);
@@ -48,5 +53,6 @@ namespace _3Lab_OOP
             };
             return marker;
         }
+
     }
 }

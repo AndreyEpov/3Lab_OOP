@@ -6,6 +6,7 @@ using System.Device.Location;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -15,11 +16,31 @@ namespace _3Lab_OOP
 {
     class CHuman : CMapObject
     {
-        private PointLatLng point;
+        public PointLatLng point;
+        private PointLatLng destination;
+        public GMapMarker humanMarker;
+        public event EventHandler passSeated;
+      //  public event EventHandler passRise;
         public CHuman(string title, PointLatLng point) : base(title)
         {
             this.point = point;
         }
+
+        public PointLatLng getDestination()
+        {
+            return destination;
+        }
+
+        public void setPosition(PointLatLng point)
+        {
+            this.point = point;
+        }
+
+        public void moveTo(PointLatLng dest)
+        {
+            destination = dest;
+        }
+
         public override double getDistance(PointLatLng point)
         {
             GeoCoordinate p1 = new GeoCoordinate(point.Lat, point.Lng);
@@ -45,7 +66,22 @@ namespace _3Lab_OOP
                 }
 
             };
-            return marker;
+            humanMarker = marker;
+            return marker; 
         }
+        public void CarArrived(object sender, EventArgs e)
+        {
+
+            passSeated?.Invoke(this, EventArgs.Empty);
+
+            //MessageBox.Show("Car arrived");
+
+        }
+
+        public void CarArrivedToDestination(object sender, EventArgs e)
+        {
+          //  passRise?.Invoke(this, EventArgs.Empty);
+        }
+
     }
 }

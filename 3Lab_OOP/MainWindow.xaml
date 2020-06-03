@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:_3Lab_OOP"
         xmlns:WindowsPresentation="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation" x:Class="_3Lab_OOP.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="684" Width="1199">
+        Title="MainWindow" Height="751.932" Width="1199">
     <Grid Margin="0">
 
-        <WindowsPresentation:GMapControl Name="Map" Loaded="MapLoaded" Width="800" Height="600" HorizontalAlignment="Left" VerticalAlignment="Top" MouseLeftButtonDown="Map_MouseLeftButtonDown" />
-        <ComboBox x:Name="objType" Margin="899,112,91,0" VerticalAlignment="Top" SelectedIndex="0" Height="23">
+        <WindowsPresentation:GMapControl Name="Map" Loaded="MapLoaded" Width="800" Height="600" HorizontalAlignment="Left" VerticalAlignment="Top" MouseLeftButtonDown="Map_MouseLeftButtonDown" MouseDoubleClick="Map_MouseDoubleClick" />
+        <ComboBox x:Name="objType" Margin="899,112,91,0" VerticalAlignment="Top" SelectedIndex="1" Height="23">
             <ListBoxItem Content="Car"/>
             <ListBoxItem Content="Human"/>
             <ListBoxItem Content="Location"/>
@@ -37,14 +37,9 @@
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="253" Margin="882,358,0,0" VerticalAlignment="Top" Width="229" Visibility="Hidden"/>
         <Button x:Name="Clear_but" Content="Clear" HorizontalAlignment="Left" Margin="899,261,0,0" VerticalAlignment="Top" Width="201" Height="39" Click="Clear_but_Click"/>
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="148" Margin="899,447,0,0" VerticalAlignment="Top" Width="201" MouseDoubleClick="listView_MouseDoubleClick" Visibility="Hidden">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Title" Width="135" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="Distance" Width="70" DisplayMemberBinding="{Binding Distance}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Button x:Name="But_ToDest" Content="Where" HorizontalAlignment="Left" Margin="10,650,0,0" VerticalAlignment="Top" Width="274" Height="34" Click="But_ToDest_Click"/>
+        <Button x:Name="But_callCar" Content="Calling a car " HorizontalAlignment="Left" Margin="289,650,0,0" VerticalAlignment="Top" Width="295" Height="34" Click="But_callCar_Click"/>
+        <Button x:Name="But_Ok" Content="Ok" HorizontalAlignment="Left" Margin="612,650,0,0" VerticalAlignment="Top" Width="201" Height="34" Click="But_Ok_Click"/>
 
     </Grid>
 </Window>
