@@ -135,11 +135,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="pics\car.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="pics\cirkle.png" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +145,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="pics\point.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pics\car.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

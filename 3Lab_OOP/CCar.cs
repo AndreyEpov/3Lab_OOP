@@ -65,6 +65,7 @@ namespace _3Lab_OOP
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                     VerticalAlignment = System.Windows.VerticalAlignment.Center,
                     ToolTip = this.getTitle(), // всплывающая подсказка
+                    Margin = new System.Windows.Thickness(-16, -16, 0, 0),
                     Source = new BitmapImage(new Uri("pack://application:,,,/pics/car.png")) // картинка
                 }
 
@@ -90,7 +91,7 @@ namespace _3Lab_OOP
             this.route = new CRoude("", routePoints);
 
             double dist = 0;
-            double minDist = 0.000001;
+            double minDist = 0.00001;
 
             List<PointLatLng> points = this.route.getPoints();
             ePoints.Clear();
@@ -139,12 +140,14 @@ namespace _3Lab_OOP
 
                         // установка угла поворота маркера
 
-                        if (Math.Abs(angle - cAngle) > 11) //|| (a - angle < 0))
+                        if (Math.Abs(angle - cAngle) > 10) //|| (a - angle < 0))
                         {
                             cAngle = angle;
-                            carMarker.Shape.RenderTransform = new RotateTransform(angle, 20, 20);
+                            carMarker.Shape.RenderTransform = new RotateTransform(angle, 10, 10);
+
                         }
                     }
+                    gMap.Position = carMarker.Position;
                     // изменение позиции маркера
                     carMarker.Position = point;
                     this.point = point;
@@ -153,8 +156,9 @@ namespace _3Lab_OOP
                     {
                         pass.setPosition(point);
                         pass.humanMarker.Position = point;
-                        pass.humanMarker.Shape.RenderTransform = new RotateTransform(cAngle, 20, 20);
-
+                        pass.humanMarker.Shape.RenderTransform = new RotateTransform(cAngle, 16, 16);
+                        
+                        // FollowtheCar?.Invoke(this, null);
                     }
                 });
                 // задержка 5 мс
@@ -165,10 +169,11 @@ namespace _3Lab_OOP
                 Arrived?.Invoke(this, null);
             else
             {
-                MessageBox.Show("Высаживаемся!");
+                MessageBox.Show("Your stop!");
                 pass = null;
+               
                 //ArrivedtoDestination?.Invoke(this, null);
-                newThread.Abort();
+                //newThread.Abort();
             }
                 
         }
@@ -181,13 +186,9 @@ namespace _3Lab_OOP
              Application.Current.Dispatcher.Invoke(delegate{ 
                  gMap.Markers.Add(moveTo(pass.getDestination()));
              });
-            pass.point=point;
+           // pass.point=point;
         }
-        public void passRise(object sender, EventArgs e)
-        {
-            //pass = (CHuman)sender;
-            MessageBox.Show("Car arrived");
-        }
+
 
 
     }

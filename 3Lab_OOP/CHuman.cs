@@ -62,6 +62,7 @@ namespace _3Lab_OOP
                     Width = 32, // ширина маркера
                     Height = 32, // высота маркера
                     ToolTip = this.getTitle(), // всплывающая подсказка
+                    Margin = new System.Windows.Thickness(-16, -16, 0, 0),
                     Source = new BitmapImage(new Uri("pack://application:,,,/pics/human1.png")) // картинка
                 }
 

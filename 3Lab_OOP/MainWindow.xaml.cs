@@ -27,6 +27,10 @@ namespace _3Lab_OOP
     {
         List<CMapObject> objs = new List<CMapObject>();
 
+        List<CCar> cars = new List<CCar>();
+
+        List<CCar> carsSort = new List<CCar>();
+
         List<PointLatLng> pts = new List<PointLatLng>();
 
         List<CMapObject> nearestObjects = new List<CMapObject>();
@@ -189,6 +193,7 @@ namespace _3Lab_OOP
                     {
                         CCar car = new CCar(objTitle.Text, pts[0],Map);
                         objs.Add(car);
+                        cars.Add(car);
                     }
                     else if (objType.SelectedIndex == 0 && objTitle.Text.Length == 0)
                     {
@@ -337,12 +342,13 @@ namespace _3Lab_OOP
             {
                 if (objType.SelectedIndex == 0 && objTitle.Text.Length > 0)
                 {
-                    car = new CCar(objTitle.Text, pts[0],Map);
+                    CCar car = new CCar(objTitle.Text, pts[0],Map);
                     objs.Add(car);
+                    cars.Add(car);
                     if(human!=null)
                     { 
-                        car.Arrived += human.CarArrived;
-                        human.passSeated += car.passSeated;
+                        //car.Arrived += human.CarArrived;
+                      //  human.passSeated += car.passSeated;
                        // car.ArrivedtoDestination += human.CarArrivedToDestination;
                        // human.passRise += car.passRise;
                     }
@@ -389,10 +395,49 @@ namespace _3Lab_OOP
             }
         }
 
+       /* private void But_Ok_Click(object sender, RoutedEventArgs e)
+        {
+              IEnumerable<CCar> query;
+              query = cars.OrderBy(car => car.getDistance(human.getFocus()));
+              foreach (CCar car in query)
+              {
+                  try
+                  {
+                      carsSort.Add(car);
+                  }
+                  catch
+                  {
+                      break;
+                  }
+              }
+              
+            Map.Markers.Add(carsSort[0].moveTo(human.getFocus()) );
+            markerTaxi.Add(carsSort[0].moveTo(human.getFocus()));
+        }*/
         private void But_Ok_Click(object sender, RoutedEventArgs e)
         {
-            Map.Markers.Add( car.moveTo(human.getFocus()) );
-            markerTaxi.Add(car.moveTo(human.getFocus()));
+            IEnumerable<CCar> query;
+            query = cars.OrderBy(car => car.getDistance(human.getFocus()));
+            foreach (CCar car in query)
+            {
+                try
+                {
+                    carsSort.Add(car);
+                    break;
+                }
+                catch
+                {
+                    break;
+                }
+            }
+            carsSort[0].Arrived += human.CarArrived;
+            human.passSeated += carsSort[0].passSeated;
+            
+            // carsSort.FollowtheCar += Focus_Follow;
+            Map.Markers.Add(carsSort[0].moveTo(human.getFocus()));
+           // markerTaxi.Add(carsSort[0].moveTo(human.getFocus()));
+         
         }
+        
     }
 }
