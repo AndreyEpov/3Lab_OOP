@@ -432,12 +432,18 @@ namespace _3Lab_OOP
             }
             carsSort[0].Arrived += human.CarArrived;
             human.passSeated += carsSort[0].passSeated;
-            
-            // carsSort.FollowtheCar += Focus_Follow;
+            carsSort[0].FollowtheCar += Follow_to;
             Map.Markers.Add(carsSort[0].moveTo(human.getFocus()));
            // markerTaxi.Add(carsSort[0].moveTo(human.getFocus()));
          
         }
-        
+        private void Follow_to(object sender, EventArgs args)
+        {
+            carsSort[0].Arrived -= human.CarArrived;           
+            human.passSeated -= carsSort[0].passSeated;
+            carsSort[0].FollowtheCar -= Follow_to;
+            MessageBox.Show("Your stop!");
+        }
+
     }
 }

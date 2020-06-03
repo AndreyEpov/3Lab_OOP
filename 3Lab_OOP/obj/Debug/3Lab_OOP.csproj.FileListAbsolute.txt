@@ -57,3 +57,4 @@ C:\Users\Андрей\source\repos1\3Lab_OOP\3Lab_OOP\obj\Debug\3Lab_OOP.csproj.
 C:\Users\Андрей\source\repos1\3Lab_OOP\3Lab_OOP\obj\Debug\3Lab_OOP.csproj.CopyComplete
 C:\Users\Андрей\source\repos1\3Lab_OOP\3Lab_OOP\obj\Debug\3Lab_OOP.exe
 C:\Users\Андрей\source\repos1\3Lab_OOP\3Lab_OOP\obj\Debug\3Lab_OOP.pdb
+C:\Users\Андрей\source\repos1\3Lab_OOP\3Lab_OOP\obj\Debug\3Lab_OOP.csprojAssemblyReference.cache

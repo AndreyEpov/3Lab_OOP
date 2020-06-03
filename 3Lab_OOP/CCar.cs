@@ -32,7 +32,6 @@ namespace _3Lab_OOP
         List<PointLatLng> ePoints = new List<PointLatLng>();
         // событие прибытия
         public event EventHandler Arrived;
-        public event EventHandler ArrivedtoDestination;
         public event EventHandler FollowtheCar;
         public CCar(string title, PointLatLng point, GMapControl map) : base(title)
         {
@@ -169,10 +168,10 @@ namespace _3Lab_OOP
                 Arrived?.Invoke(this, null);
             else
             {
-                MessageBox.Show("Your stop!");
-                pass = null;
                
-                //ArrivedtoDestination?.Invoke(this, null);
+                pass = null;
+
+                FollowtheCar?.Invoke(this, null);
                 //newThread.Abort();
             }
                 
